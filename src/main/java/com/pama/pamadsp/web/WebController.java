@@ -2,6 +2,8 @@ package com.pama.pamadsp.web;
 
 
 import com.pama.pamadsp.mapper.UserMapper;
+import com.pama.pamadsp.service.UserService;
+import com.pama.pamadsp.vo.CommonVo;
 import com.pama.pamadsp.vo.UserInfoRequest;
 import com.pama.pamadsp.vo.UserInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,22 @@ public class WebController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "/test", method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json;charset=UTF-8")
     public UserInfoResponse login(@RequestBody UserInfoRequest request){
           UserInfoResponse userInfoResponse = new UserInfoResponse();
           userInfoResponse = userMapper.getUserInfo(request);
           return userInfoResponse;
+    }
+
+    @RequestMapping(value = "/addUser",method = RequestMethod.GET)
+    public CommonVo insertOneMillionUser() {
+        CommonVo commonVo = new CommonVo();
+        userService.insertOneMillionUserToDb();
+        return commonVo;
     }
 
 }

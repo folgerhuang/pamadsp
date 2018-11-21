@@ -9,5 +9,10 @@
       SELECT * FROM user WHERE username = #{username} AND password = #{password}
     </select>
 
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.pama.pamadsp.entity.User">
+        insert into user(username, password)
+               values(#{username}, #{password})
+    </insert>
+
 </mapper>
 
