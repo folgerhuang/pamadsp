@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pama.pamadsp.web.mapper.UserMapper">
+
+    <select id="getUserInfo" parameterType = "com.pama.pamadsp.web.vo.UserInfoRequest"
+            resultType = "com.pama.pamadsp.web.vo.UserInfoResponse">
+      SELECT * FROM user WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.pama.pamadsp.web.entity.User">
+        insert into user(username, password)
+               values(#{username}, #{password})
+    </insert>
+
+</mapper>
+
