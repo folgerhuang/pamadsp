@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by xiabin on 2017/6/17.
+ * Created by SHIYU463
  */
 @RestController
-public class WebController {
+public class RZYLogController {
 
     @Autowired
     private UserMapper userMapper;

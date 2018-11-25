@@ -1,6 +1,5 @@
 package com.pama.pamadsp.web.controller;
 
-
 import com.pama.pamadsp.web.entity.ScheduleJob;
 import com.pama.pamadsp.web.service.SchedulerJobService;
 import com.pama.pamadsp.web.utils.Message;
@@ -9,21 +8,17 @@ import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * Created by SHIYU463
- */
-@RequestMapping("/job/api")
-@Controller
-public class JobController {
-    private static final Logger logger = LoggerFactory.getLogger(JobController.class);
+@RestController
+@RequestMapping("/rest/job/api/")
+public class RestJobController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Scheduler scheduler;
@@ -31,23 +26,8 @@ public class JobController {
     @Autowired
     private SchedulerJobService schedulerJobService;
 
-    @RequestMapping("/")
-    public String index(HttpServletRequest request) {
-        List<ScheduleJob> jobList = schedulerJobService.getAllScheduleJob();
-        request.setAttribute("jobs", jobList);
-        System.out.println(jobList);
-        logger.info("[JobController] load all schedule jobs done.");
-        return "index";
-    }
-
-    /**
-     * 获取所有的任务
-     *
-     * @return
-     */
     @RequestMapping("/getAllJobs")
-    @ResponseBody
-    public Object getAllJobs() {
+    public List<ScheduleJob> getAllJobs() {
         logger.info("[JobController] the method:getAllJobs! the url path:------------/getAllJobs----------------");
         List<ScheduleJob> jobList = schedulerJobService.getAllScheduleJob();
         logger.info("[JobController] the method:getAllJobs is execution over ");
@@ -61,8 +41,7 @@ public class JobController {
      * @throws SchedulerException
      */
     @RequestMapping("/getRunJob")
-    @ResponseBody
-    public Object getAllRunningJob() throws SchedulerException {
+    public List<ScheduleJob> getAllRunningJob() throws SchedulerException {
         logger.info("[JobController] the method:getAllRunningJob! the url path:------------/getRunJob----------------");
         List<ScheduleJob> jobList = schedulerJobService.getAllRunningJob();
         logger.info("[JobController] the method:getAllRunningJob is execution over ");
@@ -75,8 +54,7 @@ public class JobController {
      * @param scheduleJob
      */
     @RequestMapping("/saveOrUpdate")
-    @ResponseBody
-    public Object addOrUpdateJob(@ModelAttribute ScheduleJob scheduleJob) {
+    public Object addOrUpdateJob(@RequestBody ScheduleJob scheduleJob) {
         logger.info("[JobController] the method addOrUpdateJob is start URL path:/addJob, the param:{}", scheduleJob);
         Message message = Message.failure();
         try {
@@ -96,16 +74,13 @@ public class JobController {
      * @param jobGroup
      */
     @RequestMapping("/runOneJob")
-    @ResponseBody
-    public Object runJob(String jobName, String jobGroup) {
-        logger.info("[JobController] the url path:------------/runOneJob----------------");
+    public Object runJob(@RequestParam(value = "jobName") String jobName, @RequestParam(value = "jobGroup") String jobGroup) {
         Message message = Message.failure();
         try {
             schedulerJobService.runOneJob(jobName, jobGroup);
             message = Message.success();
         } catch (SchedulerException e) {
             message.setMsg(e.getMessage());
-            logger.error("[JobController] runOnejob is failure in method:runJob");
         }
         return message;
     }
@@ -117,19 +92,17 @@ public class JobController {
      * @param jobGroup
      */
     @RequestMapping("/pauseJob")
-    @ResponseBody
-    public Object pauseJob(String jobName, String jobGroup) {
-        logger.info("[JobController] the url path:------------/runOneJob----------------");
+    public Object pauseJob(@RequestParam(value = "jobName") String jobName, @RequestParam(value = "jobGroup") String jobGroup) {
         Message message = Message.failure();
         try {
             schedulerJobService.pauseJob(jobName, jobGroup);
             message = Message.success();
         } catch (SchedulerException e) {
             message.setMsg(e.getMessage());
-            logger.error("[JobController] pauseJob is failure in method:pauseJob");
         }
         return message;
     }
+
 
     /**
      * 删除一个定时任务
@@ -139,16 +112,13 @@ public class JobController {
      * @return
      */
     @RequestMapping("/deleteJob")
-    @ResponseBody
-    public Object deleteJob(String jobName, String jobGroup) {
-        logger.info("[JobController] the url path:------------/runOneJob----------------");
+    public Object deleteJob(@RequestParam(value = "jobName") String jobName, @RequestParam(value = "jobGroup") String jobGroup) {
         Message message = Message.failure();
         try {
             schedulerJobService.deleteJob(jobName, jobGroup);
             message = Message.success();
         } catch (SchedulerException e) {
             message.setMsg(e.getMessage());
-            logger.error("[JobController] deleteJob is failre in method: deleteJob!");
         }
         return message;
     }
@@ -160,19 +130,15 @@ public class JobController {
      * @param jobGroup
      * @return
      */
-    @ResponseBody
     @RequestMapping("/resumeJob")
-    public Object resumeJob(String jobName, String jobGroup) {
-        logger.info("[JobController] the url path:------------/resumeJob----------------");
+    public Object resumeJob(@RequestParam(value = "jobName") String jobName, @RequestParam(value = "jobGroup") String jobGroup) {
         Message message = Message.failure();
         try {
             schedulerJobService.resumeJob(jobName, jobGroup);
             message = Message.success();
         } catch (SchedulerException e) {
             message.setMsg(e.getMessage());
-            logger.error("[JobController] resumeJob is failre in method: resumeJob!");
         }
         return message;
     }
-
 }

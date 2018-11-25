@@ -1,5 +1,7 @@
 package com.pama.pamadsp.web.service;
 
+import com.pama.pamadsp.web.entity.CommonVO;
+
 public interface UserService {
-    void insertOneMillionUserToDb();
+    CommonVO insertOneMillionUserToDb();
 }

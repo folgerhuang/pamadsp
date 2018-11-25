@@ -6,7 +6,7 @@ import com.pama.pamadsp.web.vo.UserInfoResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * Created by xiabin on 2017/6/17.
+ * Created by SHIYU463
  */
 @Mapper
 public interface UserMapper {
