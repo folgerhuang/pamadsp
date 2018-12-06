@@ -28,10 +28,10 @@ public final class MultipleConsumersMain {
 
         consumerGroup.execute();
 
-        try {
+      /*  try {
             Thread.sleep(100000);
         } catch (InterruptedException ie) {
 
-        }
+        }*/
     }
 }

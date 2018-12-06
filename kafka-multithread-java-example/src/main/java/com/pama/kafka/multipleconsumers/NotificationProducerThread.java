@@ -34,7 +34,7 @@ public class NotificationProducerThread implements Runnable {
     @Override
     public void run() {
         System.out.println("Produces 3 messages");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             String msg = "Message " + i;
             producer.send(new ProducerRecord<String, String>(topic, msg), new Callback() {
                 public void onCompletion(RecordMetadata metadata, Exception e) {
