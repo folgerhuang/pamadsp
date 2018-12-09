@@ -19,7 +19,7 @@ public class GreetingsController {
     @GetMapping("/greetings")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void greetings(@RequestParam("message") String message) {
-        Greetings greetings = builder()
+        Greetings greetings = Greetings.builder()
                 .message(message)
                 .timestamp(System.currentTimeMillis())
                 .build();
