@@ -1,6 +1,6 @@
-package com.pama.stream.kafka.config;
+package com.kaviddiss.streamkafka.config;
 
-import com.pama.stream.kafka.stream.GreetingsStreams;
+import com.kaviddiss.streamkafka.stream.GreetingsStreams;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
 @EnableBinding(GreetingsStreams.class)

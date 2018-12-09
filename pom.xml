@@ -11,7 +11,6 @@
         <module>pama-dsp-eurekaserver</module>
         <module>pama-dsp-admin</module>
         <module>pama-dsp-test</module>
-        <module>cloud-stream-kafka</module>
         <module>kafka-multithread-java-example</module>
     </modules>
     <packaging>pom</packaging>

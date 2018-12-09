@@ -1,4 +1,4 @@
-package com.pama.stream.kafka.stream;
+package com.kaviddiss.streamkafka.stream;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
@@ -6,12 +6,12 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
 public interface GreetingsStreams {
-    String INPUT = "greetins-in";
-    String OUT = "greetings-out";
+    String INPUT = "greetings-in";
+    String OUTPUT = "greetings-out";
 
     @Input(INPUT)
-    SubscribableChannel inboundGreatings();
+    SubscribableChannel inboundGreetings();
 
-    @Output(OUT)
-    MessageChannel outboundGreatings();
+    @Output(OUTPUT)
+    MessageChannel outboundGreetings();
 }
