@@ -19,7 +19,7 @@ public class HelloController {
     public String sayHello(@RequestParam String name) {
         doSomeTimeCostJob doSomeTimeCostJob = new doSomeTimeCostJob();
         doSomeTimeCostJob.run();
-        return "Hhello " + name + ", 你好" + System.currentTimeMillis();
+        return "Hello " + name + ", 你好" + System.currentTimeMillis();
     }
 
     class doSomeTimeCostJob implements Runnable {
